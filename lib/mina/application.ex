@@ -12,7 +12,7 @@ defmodule Mina.Application do
       # Start the Ecto repository
       Mina.Repo,
       # Start the endpoint when the application starts
-      MinaWeb.Endpoint,
+      MinaWeb.Endpoint
       # Starts a worker by calling: Mina.Worker.start_link(arg)
       # {Mina.Worker, arg},
     ]

@@ -6,16 +6,14 @@
 use Mix.Config
 
 # General application configuration
-config :mina,
-  ecto_repos: [Mina.Repo]
+config :mina, ecto_repos: [Mina.Repo]
 
 # Configures the endpoint
 config :mina, MinaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "wATYNPSVtWgm8zl6RAKly5Aq2JCvPN1mmp02tGBoFkZeMf86iBl54+XkTdud/joK",
   render_errors: [view: MinaWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Mina.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Mina.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -26,7 +24,6 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 config :ecto, :json_library, Jason
 
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

@@ -14,7 +14,8 @@ defmodule MinaWeb.Router do
   end
 
   scope "/", MinaWeb do
-    pipe_through :browser # Use the default browser stack
+    # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
   end
