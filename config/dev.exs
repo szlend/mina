@@ -61,8 +61,6 @@ config :phoenix, :plug_init_mode, :runtime
 # Configure your database
 config :mina, Mina.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
   database: "mina_dev",
   hostname: "localhost",
   pool_size: 10

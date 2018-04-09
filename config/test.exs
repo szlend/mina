@@ -12,8 +12,6 @@ config :logger, level: :warn
 # Configure your database
 config :mina, Mina.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
   database: "mina_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
