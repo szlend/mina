@@ -7,18 +7,14 @@ defmodule Mina.Application do
 
   @impl true
   def start(_type, _args) do
-    # List all child processes to be supervised
+    seed = Mina.Seed.build("test", 0.2)
+
     children = [
-      # Start the Ecto repository
-      Mina.Repo,
-      # Start the endpoint when the application starts
-      MinaWeb.Endpoint
-      # Starts a worker by calling: Mina.Worker.start_link(arg)
-      # {Mina.Worker, arg},
+      {Mina.Repo, []},
+      {Mina.Grid.Supervisor, [seed: seed]},
+      {MinaWeb.Endpoint, []}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Mina.Supervisor]
     Supervisor.start_link(children, opts)
   end
