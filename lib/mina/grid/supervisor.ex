@@ -7,7 +7,8 @@ defmodule Mina.Grid.Supervisor do
 
   def init(args) do
     seed = Keyword.fetch!(args, :seed)
-    args = [seed: seed, size: 50]
+    size = Keyword.fetch!(args, :size)
+    args = [seed: seed, size: size]
     DynamicSupervisor.init(strategy: :one_for_one, extra_arguments: [args])
   end
 

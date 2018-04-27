@@ -8,10 +8,11 @@ defmodule Mina.Application do
   @impl true
   def start(_type, _args) do
     seed = Mina.Seed.build("test", 0.2)
+    size = 50
 
     children = [
       {Mina.Repo, []},
-      {Mina.Grid.Supervisor, [seed: seed]},
+      {Mina.Grid.Supervisor, [seed: seed, size: size]},
       {MinaWeb.Endpoint, []}
     ]
 
