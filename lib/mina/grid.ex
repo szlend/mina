@@ -13,8 +13,6 @@ defmodule Mina.Grid do
   @type move :: {move_type, player_id}
   @type move_type :: {:mine, :hit} | {:mine, :flag} | {:empty, 0..8}
   @type player_id :: pos_integer
-
-  @type action :: :reveal | :flag
   @type action_result ::
           {:ok, {moves, [rel_pos]}}
           | {:error, :already_cleared}
@@ -48,10 +46,6 @@ defmodule Mina.Grid do
       {x - 1, y + 1}
     ]
   end
-
-  @spec action(t, action, rel_pos, player_id) :: action_result
-  def action(grid, :flag, pos, player_id), do: flag(grid, pos, player_id)
-  def action(grid, :reveal, pos, player_id), do: reveal(grid, pos, player_id)
 
   @spec flag(t, rel_pos, player_id) :: action_result
   def flag(grid, pos, player_id) do
@@ -112,6 +106,24 @@ defmodule Mina.Grid do
       else
         {moves, deferred}
       end
+    end
+  end
+
+  @spec offset_deferred(t, [rel_pos]) :: [{rel_pos, abs_pos}]
+  def offset_deferred(%{size: size, offset: {offset_x, offset_y}}, deferred) do
+    for {x, y} <- deferred do
+      {new_x, new_offset_x} = offset_side(x, offset_x, size)
+      {new_y, new_offset_y} = offset_side(y, offset_y, size)
+      {{new_x, new_y}, {new_offset_x, new_offset_y}}
+    end
+  end
+
+  @spec offset_side(integer, integer, integer) :: {integer, integer}
+  defp offset_side(rel, offset, size) do
+    cond do
+      rel < 0 -> offset_side(rel + size, offset - size, size)
+      rel >= size -> offset_side(rel - size, offset + size, size)
+      true -> {rel, offset}
     end
   end
 end

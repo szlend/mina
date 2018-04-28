@@ -141,4 +141,33 @@ defmodule Mina.GridTest do
       assert deferred == [{-1, 2}, {-1, 3}, {-1, 4}]
     end
   end
+
+  describe "offset_deferred/2" do
+    test "it returns the correct positions and offsets" do
+      seed = Mina.Seed.build("test", 0.0)
+      grid = Mina.Grid.new(seed, {0, 0}, 10)
+
+      deferred = [
+        {-1, 0},
+        {-1, -1},
+        {0, -1},
+        {10, -1},
+        {10, 0},
+        {10, 10},
+        {0, 10},
+        {-1, 10}
+      ]
+
+      assert Mina.Grid.offset_deferred(grid, deferred) == [
+               {{9, 0}, {-10, 0}},
+               {{9, 9}, {-10, -10}},
+               {{0, 9}, {0, -10}},
+               {{0, 9}, {10, -10}},
+               {{0, 0}, {10, 0}},
+               {{0, 0}, {10, 10}},
+               {{0, 0}, {0, 10}},
+               {{9, 0}, {-10, 10}}
+             ]
+    end
+  end
 end
